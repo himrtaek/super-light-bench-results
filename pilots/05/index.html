@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071218">
+  <title>조수의 종지기 — 전투 파일럿</title>
+  <link rel="preload" as="image" href="assets/arena.webp">
+  <link rel="preload" as="image" href="assets/tide-bell-warden.webp">
+  <style>
+    :root { font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color:#f6f1e5; background:#061016; }
+    * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    html,body { margin:0; width:100%; height:100%; overflow:hidden; }
+    button { font:inherit; }
+    #game { position:relative; width:100vw; height:100dvh; min-height:320px; overflow:hidden; isolation:isolate; background:#07151e; }
+    .arena { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 55%; filter:saturate(.85) contrast(1.06); }
+    .shade { position:absolute; inset:0; background:linear-gradient(180deg,rgba(2,8,14,.32),transparent 26%,transparent 62%,rgba(2,7,11,.62) 100%),radial-gradient(ellipse at 54% 49%,transparent 23%,rgba(0,0,0,.24) 100%); }
+    #fx { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+    .actor { position:absolute; display:block; object-fit:contain; user-select:none; pointer-events:none; transform-origin:center bottom; transition:filter .16s,transform .18s; }
+    #boss { height:min(82vh,780px); width:auto; max-width:none; left:58%; bottom:9%; transform:translateX(-50%); filter:drop-shadow(0 20px 14px #000b) drop-shadow(0 0 18px #6be4d12c); }
+    #hero { height:min(53vh,510px); width:auto; max-width:none; left:24%; bottom:7%; transform:translateX(-50%); filter:drop-shadow(0 17px 9px #000b); }
+    #boss.windup { transform:translateX(-50%) rotate(-2deg) scale(1.035); filter:drop-shadow(0 15px 15px #000c) drop-shadow(0 0 26px #d18d5b99); }
+    #boss.impact { transform:translateX(-53%) rotate(-4deg) scale(1.055); }
+    #boss.hurt { transform:translateX(-47%) rotate(4deg) scale(.99); filter:brightness(1.5) drop-shadow(0 0 27px #80f9ec); }
+    #hero.parry { transform:translateX(-50%) translateY(-3%) rotate(5deg); filter:brightness(1.45) drop-shadow(0 0 26px #b9fff2); }
+    #hero.hurt { transform:translateX(-55%) rotate(-7deg); filter:brightness(1.25) sepia(.45) drop-shadow(0 0 18px #f0705a); }
+    .top { position:absolute; top:0; left:0; right:0; padding:max(14px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) 0 max(18px,env(safe-area-inset-left)); display:flex; align-items:flex-start; justify-content:space-between; gap:14px; text-shadow:0 2px 8px #000; }
+    .mark { font-size:clamp(10px,1.3vw,13px); font-weight:700; letter-spacing:.24em; color:#d8c49d; white-space:nowrap; }
+    .chapter { margin-top:5px; font-size:clamp(9px,1vw,11px); letter-spacing:.12em; opacity:.7; }
+    .help { font-size:11px; opacity:.7; text-align:right; letter-spacing:.05em; }
+    .bottom { position:absolute; bottom:0; left:0; right:0; padding:0 max(18px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left)); display:grid; grid-template-columns:1fr auto; column-gap:24px; align-items:end; text-shadow:0 1px 8px #000; }
+    .meters { max-width:440px; }
+    .label { display:flex; justify-content:space-between; gap:10px; margin:0 0 7px; text-transform:uppercase; font-size:clamp(10px,1.4vw,12px); font-weight:700; letter-spacing:.18em; }
+    .boss-title { font-size:clamp(15px,2vw,22px); letter-spacing:.13em; font-weight:600; margin-bottom:8px; }
+    .track { height:9px; background:#071213c9; border:1px solid #c9c5ad82; box-shadow:0 2px 8px #000a; overflow:hidden; }
+    .fill { height:100%; width:100%; transform-origin:left; transition:transform .35s; }
+    #bossFill { background:linear-gradient(90deg,#7b3126,#d59666 80%,#f8d9ab); }
+    #heroFill { background:linear-gradient(90deg,#4ca49c,#abefe1); }
+    .hero-meter { margin-top:11px; max-width:230px; }
+    .hero-meter .track { height:6px; }
+    #parry { min-width:126px; height:70px; padding:9px 16px; border:1px solid #d6ead6b8; color:#f5fff9; background:linear-gradient(145deg,#225555df,#0a2529e8); box-shadow:inset 0 1px #f4ffff55,0 8px 30px #0009; border-radius:5px; font-size:18px; font-weight:700; letter-spacing:.13em; cursor:pointer; touch-action:manipulation; }
+    #parry.ready { background:linear-gradient(145deg,#6b7c6b,#21575a); box-shadow:0 0 26px #b4f8d777,inset 0 1px #fff8; }
+    #parry:active { transform:scale(.96); }
+    #parry small { display:block; font-size:9px; font-weight:500; letter-spacing:.12em; opacity:.75; margin-top:3px; }
+    #cue { position:absolute; top:27%; left:50%; transform:translateX(-50%); min-width:170px; text-align:center; color:#f8dfb7; font-size:clamp(14px,2.4vw,24px); font-weight:700; letter-spacing:.19em; text-shadow:0 2px 10px #000,0 0 19px #d6874f; opacity:0; transition:opacity .16s; pointer-events:none; }
+    #cue.show { opacity:1; }
+    #result { position:absolute; top:15%; left:50%; transform:translateX(-50%); max-width:85vw; padding:8px 13px; font-size:clamp(12px,1.8vw,18px); font-weight:700; letter-spacing:.13em; background:#06171cbb; border:1px solid #a5bcb47d; text-align:center; opacity:0; transition:opacity .25s; pointer-events:none; }
+    #result.show { opacity:1; }
+    @media (orientation:portrait) {
+      .arena { object-position:50% center; transform:scale(1.65); }
+      #boss { height:60vh; left:59%; bottom:17%; }
+      #hero { height:37vh; left:29%; bottom:17%; }
+      .top { padding-top:max(18px,env(safe-area-inset-top)); }
+      .help { max-width:125px; line-height:1.35; }
+      .bottom { grid-template-columns:1fr auto; gap:12px; }
+      #parry { min-width:96px; height:76px; font-size:15px; padding:8px; }
+      .boss-title { font-size:14px; }
+      #cue { top:23%; }
+    }
+    @media (max-height:420px) and (orientation:landscape) {
+      #boss { height:78vh; bottom:6%; } #hero { height:51vh; bottom:5%; }
+      .top { padding-top:8px; } .bottom { padding-bottom:8px; }
+      #parry { height:58px; }
+    }
+  </style>
+</head>
+<body>
+  <main id="game" aria-label="조수의 종지기 보스 전투">
+    <img class="arena" src="assets/arena.webp" alt="폭풍우 속 폐허가 된 종의 원형 전장">
+    <div class="shade"></div>
+    <img id="boss" class="actor" src="assets/tide-bell-warden.webp" alt="낡은 철갑과 남색 망토를 두른 조수의 종지기">
+    <img id="hero" class="actor" src="assets/duelist.webp" alt="방패와 짧은 검을 든 결투자">
+    <canvas id="fx" aria-hidden="true"></canvas>
+    <header class="top"><div><div class="mark">THE DROWNED BELLS</div><div class="chapter">CHAPTER 01 · STORM CAUSEWAY</div></div><div class="help">종소리가 울리기 전, 받아쳐라<br>SPACE / 버튼</div></header>
+    <div id="cue" role="status">종소리 예고</div>
+    <div id="result" role="status"></div>
+    <footer class="bottom">
+      <div class="meters"><div class="boss-title">조수의 종지기</div><div class="label"><span>WARDEN</span><span id="bossValue">100%</span></div><div class="track"><div id="bossFill" class="fill"></div></div><div class="hero-meter"><div class="label"><span>DUELIST</span><span id="heroValue">100%</span></div><div class="track"><div id="heroFill" class="fill"></div></div></div></div>
+      <button id="parry" type="button" aria-label="종지기의 공격 받아치기">받아치기<small>타이밍 방어</small></button>
+    </footer>
+  </main>
+  <script src="main.js"></script>
+</body>
+</html>

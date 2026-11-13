@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101a21">
+  <title>BREAKWATER — Signal Range</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="stage" aria-label="Breakwater first-person target range">
+    <canvas id="scene" aria-label="폭풍우가 치는 해안 기지의 표적 사격장"></canvas>
+    <div class="screen-grain" aria-hidden="true"></div>
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">B<span>╱</span>W</span><span class="brand-copy"><strong>BREAKWATER</strong><small>COASTAL DEFENSE / LIVE RANGE</small></span></div>
+      <div class="mission"><span class="eyebrow">OPERATION 01 · SIGNAL BREACH</span><strong>무인 포탑을 무력화하세요</strong><small>지시된 표적을 조준하고 사격</small></div>
+      <div class="weather"><span class="weather-dot"></span><span>SECTOR 07<br><strong>STORM / 18:42</strong></span></div>
+    </header>
+    <div class="compass" aria-hidden="true"><span>W</span><span class="tick"></span><span>NW</span><span class="tick"></span><strong>315°</strong><span class="tick"></span><span>N</span><span class="tick"></span><span>NE</span></div>
+    <div id="hitAlert" class="hit-alert" aria-live="polite"></div>
+    <div class="hud-bottom">
+      <div class="readout"><span class="eyebrow">TARGET SYSTEM</span><div class="signal"><i></i><strong id="status">ACTIVE</strong><span id="targetCount">03 CONTACTS</span></div><div class="progress-track"><div id="progress"></div></div></div>
+      <div class="controls-hint"><span><kbd>마우스</kbd> 조준</span><span><kbd>클릭</kbd> 사격</span><span><kbd>우클릭</kbd> 정밀 조준</span><span><kbd>R</kbd> 재장전</span></div>
+      <div class="ammo"><span class="eyebrow">M7 / CARBINE</span><div><strong id="ammo">24</strong><span>/ <span id="reserve">96</span></span></div><small id="reloadText">5.56 MM · SEMI-AUTO</small></div>
+    </div>
+    <div class="mobile-actions"><button id="adsBtn" type="button" aria-label="정밀 조준">조준</button><button id="fireBtn" type="button" aria-label="사격">사격</button><button id="reloadBtn" type="button" aria-label="재장전">재장전</button></div>
+    <div class="start-hint" id="startHint">표적을 터치하거나 클릭해 사격하세요 <span>·</span> 드래그로 조준</div>
+  </main>
+  <script src="main.js"></script>
+</body>
+</html>

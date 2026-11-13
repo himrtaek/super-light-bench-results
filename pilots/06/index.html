@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#071c24">
+  <title>유리 정원 · 전투 파일럿</title>
+  <link rel="preload" as="image" href="assets/glasshouse.webp">
+  <link rel="preload" as="image" href="assets/courier.webp">
+  <link rel="preload" as="image" href="assets/seed-sentinel.webp">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="game" aria-label="유리 정원 횡스크롤 전투 장면">
+    <section id="stage">
+      <canvas id="scene" aria-label="온실 발판, 주인공과 씨앗 감시자"></canvas>
+      <div id="topline"><span class="mark">✦</span><span>GLASSHOUSE / 01</span><span class="dash"></span><span>황혼의 재배실</span></div>
+      <div id="prompt" aria-live="polite">황동 창으로 길을 여세요</div>
+    </section>
+    <nav id="controls" aria-label="게임 조작">
+      <div class="control-group movement">
+        <button id="left" aria-label="왼쪽 이동">◀</button>
+        <button id="right" aria-label="오른쪽 이동">▶</button>
+      </div>
+      <div class="control-group actions">
+        <button id="jump" aria-label="점프"><span>↥</span><small>JUMP</small></button>
+        <button id="attack" aria-label="공격"><span>✦</span><small>STRIKE</small></button>
+      </div>
+    </nav>
+    <div id="help">A D / ← → 이동 &nbsp;·&nbsp; SPACE 점프 &nbsp;·&nbsp; J 공격</div>
+  </main>
+  <script src="main.js"></script>
+</body>
+</html>

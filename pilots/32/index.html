@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#14262c">
+  <title>Bellwater Orchard · Seed Sharing</title>
+  <link rel="preload" href="assets/marsh-orchard-night.webp" as="image">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="game" aria-label="Bellwater Orchard game scene">
+    <canvas id="scene" aria-label="Marsh orchard. Tap the path to walk toward the seed rack."></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <header class="hud">
+      <div class="place"><span class="place-kicker">BELLWATER ORCHARD</span><strong>Seed Share</strong></div>
+      <div class="count" aria-live="polite"><span class="seed-icon" aria-hidden="true">✦</span><span id="seedCount">03</span><small>SEEDS</small></div>
+    </header>
+    <div id="speech" class="speech" role="status" aria-live="polite"></div>
+    <footer class="controls">
+      <div class="hint"><span class="hint-dot"></span><span id="hintText">Tap the path to move · share seeds by the willow</span></div>
+      <button id="shareButton" type="button" aria-label="Walk to the gathering rack and share a seed"><span class="button-icon">✦</span> SHARE SEED <span class="button-key">E</span></button>
+    </footer>
+  </main>
+  <script src="game.js" defer></script>
+</body>
+</html>

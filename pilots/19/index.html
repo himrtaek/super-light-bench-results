@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b141b">
+  <title>잔향 — #19 얼굴 파일럿</title>
+  <link rel="preload" as="image" href="assets/operator-idle.webp" fetchpriority="high">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="game" class="game" aria-label="잔향: 구조 신호를 듣는 짧은 대화 장면">
+    <div class="scene" aria-hidden="true">
+      <img class="portrait portrait--idle" src="assets/operator-idle.webp" alt="" fetchpriority="high" decoding="async">
+      <img class="portrait portrait--answer" src="assets/operator-answer.webp" alt="" decoding="async">
+      <div class="scene__shade"></div>
+      <div class="scene__rain scene__rain--a"></div>
+      <div class="scene__rain scene__rain--b"></div>
+      <div class="scene__glow"></div>
+    </div>
+    <div class="topline" aria-hidden="true"><span class="topline__mark">◆</span> 잔향 <span class="topline__sep"></span> 03:17 / 북부 산악 무전소</div>
+    <section class="dialogue" aria-live="polite">
+      <p class="dialogue__speaker">윤재 · 구조 무전 담당</p>
+      <p id="line" class="dialogue__line">“산 너머에서 호출이 들렸어. 아직 누군가 살아 있어.”</p>
+      <p id="cue" class="dialogue__cue">그의 시선이 출입문 쪽에 머문다.</p>
+      <div id="choices" class="choices" role="group" aria-label="응답 선택">
+        <button type="button" class="choice" data-choice="go"><span class="choice__number">01</span><span>“신호를 따라가요.”</span><span class="choice__arrow">↗</span></button>
+        <button type="button" class="choice" data-choice="wait"><span class="choice__number">02</span><span>“다른 구조팀을 기다려요.”</span><span class="choice__arrow">↗</span></button>
+      </div>
+      <button id="again" class="again" type="button" hidden>↶ &nbsp;다시 선택</button>
+    </section>
+    <div class="footnote" aria-hidden="true">HEADPHONES RECOMMENDED <span>·</span> CHAPTER 01</div>
+  </main>
+  <script src="main.js" defer></script>
+</body>
+</html>

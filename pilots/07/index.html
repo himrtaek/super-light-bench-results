@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#102e36">
+  <title>Stormworks · Gale Trial</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app" aria-label="Stormworks boss fight">
+    <div id="game-wrap">
+      <canvas id="scene" aria-label="폭풍 작업장의 보스전"></canvas>
+      <div id="mobile-controls" aria-label="터치 조작">
+        <div class="move-group"><button id="left" type="button" aria-label="왼쪽으로 이동">←</button><button id="right" type="button" aria-label="오른쪽으로 이동">→</button></div>
+        <div class="action-group"><button id="jump" type="button">JUMP</button><button id="attack" type="button">FIRE</button></div>
+      </div>
+    </div>
+    <p id="keys">← → 이동　·　Space 점프　·　J / X 공격</p>
+  </main>
+  <script src="main.js"></script>
+</body>
+</html>

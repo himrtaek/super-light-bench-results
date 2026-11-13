@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111b22">
+<title>늦은 노선 — 회화풍 대화 파일럿</title>
+<link rel="preload" as="image" href="assets/rail-records-room.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/archivist-portrait.webp">
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,sans-serif;background:#101820;color:#eee8d8}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}
+#scene{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+#vignette{position:fixed;inset:0;background:linear-gradient(90deg,#10151c16 0%,#10151c08 55%,#10151ccb 100%);pointer-events:none}
+#chapter{position:fixed;left:clamp(20px,3vw,48px);top:clamp(18px,3vw,34px);font-size:11px;font-weight:700;letter-spacing:.24em;color:#e7c891;text-shadow:0 2px 7px #131c1f}
+#chapter strong{display:block;margin-top:5px;font:600 clamp(19px,2.5vw,28px) Georgia,serif;letter-spacing:.02em;color:#fff3d3}
+#panel{position:fixed;right:0;top:0;bottom:0;width:min(42%,470px);min-width:360px;overflow:auto;padding:22px 24px max(18px,env(safe-area-inset-bottom));background:linear-gradient(120deg,#18212aea,#111821ef 60%,#0d141de8);border-left:2px solid #ae8060;box-shadow:-18px 0 45px #090e14c4;scrollbar-width:thin}
+#panel:before{content:"";position:absolute;left:11px;top:0;bottom:0;border-left:1px solid #bf8a5550;pointer-events:none}
+#speaker{display:flex;gap:15px;align-items:flex-end;border-bottom:1px solid #c5905f80;padding-bottom:13px}
+#portrait{width:128px;height:150px;object-fit:cover;object-position:50% 20%;border:3px solid #b98761;box-shadow:0 8px 0 #071016,0 11px 20px #0008;flex:none}
+#id{padding-bottom:9px;min-width:0}#id small{font-size:10px;letter-spacing:.22em;color:#a3b1ac}#id h1{font:600 25px Georgia,serif;margin:7px 0 5px;color:#ffe1a5}#id span{font-size:12px;color:#c4a68b}
+#dialogue{min-height:0;margin:19px 0 8px;color:#e4dfd2;font:16px/1.55 Georgia,'Apple SD Gothic Neo',serif;word-break:keep-all}
+#dialogue b{color:#efc18a;font-weight:600}
+#history{border-left:2px solid #a17a5970;padding:3px 0 3px 11px;margin:0 0 11px;color:#b8b3a9;font:11px/1.55 Georgia,serif}
+#history p{margin:0 0 3px}#history em{color:#dfb889;font-style:normal}
+#choices{display:grid;gap:8px}button{font:inherit;color:inherit;cursor:pointer}button.choice{width:100%;text-align:left;border:1px solid #7e786c9c;background:linear-gradient(90deg,#322b29d9,#19242ad9);padding:10px 12px 10px 34px;min-height:44px;position:relative;line-height:1.35;font-size:13px}button.choice:before{content:"◆";position:absolute;left:12px;top:11px;color:#c6905e;font-size:11px}button.choice:hover,button.choice:focus-visible{border-color:#e8b279;background:#554033e8;outline:0}button.choice:active{transform:translateY(1px)}
+#footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:18px;border-top:1px solid #b98b6455;padding-top:10px;font-size:10px;color:#9da7a5;letter-spacing:.04em}
+#status{color:#f2ca91}#clock{font:15px Georgia,serif;color:#d8c6ad}
+#scene-caption{position:fixed;left:clamp(20px,3vw,48px);bottom:clamp(18px,3vw,32px);font:13px Georgia,serif;letter-spacing:.05em;color:#ead7b3;text-shadow:0 2px 5px #0c1118}
+@media(max-width:720px){
+ #scene{height:52%;object-position:34% center}#vignette{background:linear-gradient(#10151c12 0%,#10151c0a 40%,#10151c88 52%,#10151c 65%)}
+ #chapter{top:max(12px,env(safe-area-inset-top));left:18px;font-size:9px}#chapter strong{font-size:19px}
+ #scene-caption{top:42%;bottom:auto;left:18px;font-size:11px}
+ #panel{top:50%;left:0;right:0;bottom:0;width:100%;min-width:0;padding:14px 18px max(15px,env(safe-area-inset-bottom));border-left:0;border-top:2px solid #b48a69;box-shadow:0 -12px 30px #0008}
+ #panel:before{display:none}#portrait{width:82px;height:94px}#speaker{gap:12px;padding-bottom:8px}#id h1{font-size:20px;margin:3px 0}#id small{font-size:9px}#id span{font-size:10px}
+ #dialogue{font-size:14px;line-height:1.42;min-height:0;margin:11px 0 6px}#history{font-size:10px;margin-bottom:8px}button.choice{font-size:12px;min-height:39px;padding-top:8px;padding-bottom:8px}#choices{gap:6px}#footer{margin-top:10px}
+}
+@media(max-width:720px) and (max-height:700px){
+ #panel{padding:9px 16px max(9px,env(safe-area-inset-bottom))}
+ #portrait{width:65px;height:72px}#speaker{padding-bottom:5px}#id{padding-bottom:2px}#id h1{font-size:19px}
+ #dialogue{font-size:13px;line-height:1.34;margin:7px 0 5px}#history{display:none}
+ #choices{gap:4px}button.choice{font-size:12px;min-height:36px;padding:7px 10px 7px 30px}button.choice:before{top:9px}
+ #footer{margin-top:6px;padding-top:6px;font-size:10px}
+}
+</style>
+</head>
+<body>
+<img id="scene" src="assets/rail-records-room.webp" alt="비 내리는 밤의 철도 기록실에서 세 사람이 대화하는 회화 장면" fetchpriority="high">
+<div id="vignette"></div>
+<div id="chapter">CHAPTER 01 <strong>늦은 노선</strong></div>
+<div id="scene-caption">비가 그치지 않는 역 · 23:47</div>
+<section id="panel" aria-label="대화">
+  <header id="speaker">
+    <img id="portrait" src="assets/archivist-portrait.webp" alt="기록관 마라의 회화 초상">
+    <div id="id"><small>RAIL ARCHIVIST</small><h1>마라 벨</h1><span>남겨진 시간표의 증인</span></div>
+  </header>
+  <p id="dialogue"><b>마라:</b> “마지막 열차의 기록은 분명히 여기 있었어요. 누군가 시간을 지운 것처럼, 그 한 줄만 비어 있죠.”</p>
+  <div id="history"><p><em>당신</em>  마지막 운행 기록을 볼 수 있을까요?</p><p><em>마라</em>  그날 밤의 장부라면 이상한 빈칸이 있어요.</p></div>
+  <div id="choices">
+    <button class="choice" data-choice="0">빈칸 앞뒤의 기록을 보여 주세요.</button>
+    <button class="choice" data-choice="1">그날 밤 역에서 누굴 보셨나요?</button>
+    <button class="choice" data-choice="2">시계를 먼저 확인하겠습니다.</button>
+  </div>
+  <footer id="footer"><span id="status">단서 0 / 3</span><span>선택하여 대화</span><span id="clock">23:47</span></footer>
+</section>
+<script>
+(() => {
+ const lines=[
+  '“앞뒤 페이지는 멀쩡해요. 마지막 열차의 도착 시각만 먹물째 긁혀 나갔죠.”',
+  '“젖은 코트를 입은 사람이 있었어요. 플랫폼이 아니라, 잠긴 서고 쪽으로 걸어갔어요.”',
+  '“벽시계는 23시 47분에 멈췄어요. 이상하게도 모든 시계가 같은 분을 가리킵니다.”'
+ ];
+ const params=new URLSearchParams(location.search);
+ let found=new Set();
+ function choose(i){found.add(i);document.getElementById('dialogue').innerHTML='<b>마라:</b> '+lines[i];document.getElementById('status').textContent=`단서 ${found.size} / 3`;document.querySelectorAll('.choice').forEach((b,j)=>b.style.opacity=found.has(j)?'.55':'1');}
+ document.querySelectorAll('.choice').forEach((button,i)=>button.addEventListener('click',()=>choose(i)));
+ if(params.has('capture')){const t=Number(params.get('t')||0);if(t>=3)choose(t>=7?1:0);}
+ window.__pilot={choose,get found(){return found.size},get sceneLoaded(){return document.getElementById('scene').complete},get portraitLoaded(){return document.getElementById('portrait').complete}};
+})();
+</script>
+</body>
+</html>
