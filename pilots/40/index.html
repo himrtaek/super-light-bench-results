@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#061d28">
+  <title>Nocturne Conservatory — Merge Atelier</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <main class="game" aria-label="Nocturne Conservatory merge game">
+    <div class="backdrop" aria-hidden="true"></div>
+    <header class="top">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span><div><strong>NOCTURNE</strong><small>CONSERVATORY</small></div></div>
+      <div class="counters">
+        <div class="counter"><span class="counter-icon moon">☾</span><span id="score" data-score="0">0</span></div>
+        <div class="counter"><span class="counter-icon coin">✧</span><span id="coins">240</span></div>
+        <div class="counter"><span class="counter-icon energy">⚡</span><span id="energy">12</span></div>
+      </div>
+    </header>
+    <section class="orders" aria-label="Workshop order">
+      <div class="order-medal" aria-hidden="true">✦</div>
+      <div class="order-copy"><small>WORKSHOP REQUEST</small><strong id="order-title">Prismatic Lens</strong><span id="order-desc">Merge two Moonstones to craft it</span></div>
+      <div class="order-prize"><span>✧ 100</span><button id="deliver" type="button" disabled>DELIVER</button></div>
+    </section>
+    <div class="board-wrap">
+      <section class="board-frame" aria-label="Merge board">
+        <div class="board-corner tl"></div><div class="board-corner tr"></div><div class="board-corner bl"></div><div class="board-corner br"></div>
+        <div id="board" class="board" role="grid" aria-label="Seven column eleven row merge board"></div>
+      </section>
+    </div>
+    <footer class="bottom">
+      <div class="hint"><span class="hint-spark">✦</span><span id="message">Drag or tap two matching relics.</span></div>
+      <div class="actions"><button id="create" class="create" type="button"><span class="create-icon">✦</span><span>Discover</span><small>−1 ⚡</small></button><div class="progress"><span>ATELIER LEVEL 04</span><div class="progress-track"><i id="progress-fill"></i></div></div><button id="reset" class="reset" type="button" aria-label="Reset board">↻</button></div>
+    </footer>
+    <div id="drag-ghost" class="drag-ghost" aria-hidden="true"></div>
+    <div id="effects" class="effects" aria-hidden="true"></div>
+    <div class="sr-only" id="announcer" aria-live="polite"></div>
+  </main>
+</body>
+</html>
